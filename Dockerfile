@@ -11,9 +11,12 @@ RUN yum update -y && yum clean all && rm -rf /var/cache/yum                     
     && echo "${IPFS_BIN_SHA256}  /bin/ipfs" --check --status                                                \
     && ipfs --version
 
+ADD start-ipfs.sh /bin/start-ipfs
+RUN chmod +x /bin/start-ipfs
+
 EXPOSE 4001/tcp 4001/udp 5001/tcp 8080/tcp
 WORKDIR ${IPFS_PATH}
 VOLUME ${IPFS_PATH}
 
-ENTRYPOINT ["/bin/ipfs"]
+ENTRYPOINT ["/bin/start-ipfs"]
 CMD []
