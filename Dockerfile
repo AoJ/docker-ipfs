@@ -18,10 +18,12 @@ ENV IPFS_PATH=/opt/ipfs
 
 RUN apk update && apk upgrade --no-cache && apk add --no-cache libc6-compat
 COPY --from=0 /bin/ipfs /bin/ipfs
+ADD start-ipfs.sh /bin/start-ipfs
+RUN chmod +x /bin/start-ipfs
 
 EXPOSE 4001/tcp 4001/udp 5001/tcp 8080/tcp
 WORKDIR ${IPFS_PATH}
 VOLUME ${IPFS_PATH}
 
-ENTRYPOINT ["/bin/ipfs"]
+ENTRYPOINT ["/bin/start-ipfs"]
 CMD []
