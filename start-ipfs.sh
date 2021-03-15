@@ -20,4 +20,9 @@ fi
 
 
 export LIBP2P_FORCE_PNET=1
-exec ipfs daemon --migrate --enable-gc
+
+if [[ -z "$@" ]]; then
+    exec ipfs daemon --migrate --enable-gc
+else
+    exec ipfs "$@"
+fi
